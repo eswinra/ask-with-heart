@@ -1,4 +1,4 @@
-const CACHE_NAME = "ask-with-heart-v1";
+const CACHE_NAME = "ask-with-heart-v2";
 const ASSETS = [
   "./",
   "index.html",
