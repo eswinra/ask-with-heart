@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#e84872" />
+  <meta name="description" content="Create a kind, personalized question and share it with someone special." />
+  <title>Ask With Heart</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="icons/icon-192.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="page-shell">
+    <section class="card" aria-live="polite">
+      <div id="builderView" hidden>
+        <div class="heart-mark" aria-hidden="true">♥</div>
+        <p class="eyebrow">Ask With Heart</p>
+        <h1>Create a special question</h1>
+        <p class="subtext">
+          Make a simple, respectful page and send the link by text.
+        </p>
+
+        <form id="builderForm">
+          <label>
+            Their name
+            <input id="toName" name="toName" maxlength="40" placeholder="Alex" required />
+          </label>
+
+          <label>
+            Your name
+            <input id="fromName" name="fromName" maxlength="40" placeholder="Jordan" required />
+          </label>
+
+          <label>
+            Your question
+            <textarea id="question" name="question" maxlength="160" rows="3" required>Would you like to be my girlfriend?</textarea>
+          </label>
+
+          <button class="primary" type="submit">Create my link</button>
+        </form>
+
+        <div id="sharePanel" class="share-panel" hidden>
+          <label for="shareUrl">Your shareable link</label>
+          <div class="url-row">
+            <input id="shareUrl" readonly />
+            <button id="copyButton" class="secondary" type="button">Copy</button>
+          </div>
+          <a id="previewLink" class="text-link" target="_blank" rel="noopener">Open preview</a>
+          <p class="small-note">
+            This version does not collect or store answers. The recipient can reply to your text.
+          </p>
+        </div>
+      </div>
+
+      <div id="proposalView" hidden>
+        <div class="heart-mark" aria-hidden="true">♥</div>
+        <p id="recipientLine" class="eyebrow"></p>
+        <h1 id="questionText"></h1>
+        <p id="senderLine" class="subtext"></p>
+
+        <div id="answerButtons" class="answer-grid">
+          <button id="yesButton" class="primary big" type="button">Yes ♥</button>
+          <button id="noButton" class="secondary big" type="button">No</button>
+        </div>
+
+        <div id="answerResult" class="result" hidden>
+          <h2 id="resultTitle"></h2>
+          <p id="resultMessage"></p>
+          <button id="resetButton" class="text-button" type="button">Go back</button>
+        </div>
+
+        <p class="consent-note">Choose honestly. There is no pressure either way.</p>
+      </div>
+    </section>
+
+    <footer>Made for kind, clear questions.</footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
