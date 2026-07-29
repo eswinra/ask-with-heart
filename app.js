@@ -6,6 +6,8 @@ const shareUrl = document.getElementById("shareUrl");
 const previewLink = document.getElementById("previewLink");
 const copyButton = document.getElementById("copyButton");
 
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/mkodevaz";
+
 const params = new URLSearchParams(window.location.search);
 const to = clean(params.get("to"));
 const from = clean(params.get("from"));
@@ -24,9 +26,13 @@ function showProposal() {
   builderView.hidden = true;
   proposalView.hidden = false;
 
-  document.getElementById("recipientLine").textContent = to ? `${to},` : "A special question";
+  document.getElementById("recipientLine").textContent = to
+    ? `${to},`
+    : "A special question";
+
   document.getElementById("questionText").textContent =
     question || "Would you like to be my girlfriend?";
+
   document.getElementById("senderLine").textContent =
     from ? `— ${from}` : "";
 }
@@ -74,37 +80,92 @@ const answerButtons = document.getElementById("answerButtons");
 const answerResult = document.getElementById("answerResult");
 const resultTitle = document.getElementById("resultTitle");
 const resultMessage = document.getElementById("resultMessage");
+const yesButton = document.getElementById("yesButton");
+const noButton = document.getElementById("noButton");
+const resetButton = document.getElementById("resetButton");
 
-document.getElementById("yesButton")?.addEventListener("click", () => {
-  answerButtons.hidden = true;
-  answerResult.hidden = false;
-  resultTitle.textContent = "That is wonderful ♥";
-  resultMessage.textContent = from
-    ? `Now send ${from} a text with the good news.`
-    : "Now send them a text with the good news.";
-  celebrate();
-});
+function setButtonsDisabled(disabled) {
+  yesButton.disabled = disabled;
+  noButton.disabled = disabled;
+}
 
-document.getElementById("noButton")?.addEventListener("click", () => {
-  answerButtons.hidden = true;
-  answerResult.hidden = false;
-  resultTitle.textContent = "Thank you for being honest";
-  resultMessage.textContent =
-    "A clear answer is always okay. You can close this page whenever you are ready.";
-});
+async function submitAnswer(answer) {
+  setButtonsDisabled(true);
 
-document.getElementById("resetButton")?.addEventListener("click", () => {
+  const originalYesText = yesButton.textContent;
+  const originalNoText = noButton.textContent;
+  yesButton.textContent = answer === "Yes" ? "Sending..." : originalYesText;
+  noButton.textContent = answer === "No" ? "Sending..." : originalNoText;
+
+  const payload = {
+    recipient: to || "Not provided",
+    sender: from || "Not provided",
+    question: question || "Would you like to be my girlfriend?",
+    answer,
+    submitted_at: new Date().toLocaleString(),
+    page_url: window.location.href,
+    _subject: `Ask With Heart response: ${answer}`
+  };
+
+  try {
+    const response = await fetch(FORMSPREE_ENDPOINT, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(payload)
+    });
+
+    if (!response.ok) {
+      throw new Error("The response could not be sent.");
+    }
+
+    answerButtons.hidden = true;
+    answerResult.hidden = false;
+    resetButton.hidden = true;
+
+    if (answer === "Yes") {
+      resultTitle.textContent = "That is wonderful ♥";
+      resultMessage.textContent = from
+        ? `Your answer was sent to ${from}.`
+        : "Your answer was sent.";
+      celebrate();
+    } else {
+      resultTitle.textContent = "Thank you for being honest";
+      resultMessage.textContent = from
+        ? `Your answer was sent to ${from}.`
+        : "Your answer was sent.";
+    }
+  } catch (error) {
+    answerResult.hidden = false;
+    resultTitle.textContent = "Your answer was not sent";
+    resultMessage.textContent =
+      "Please check your connection and press your answer again.";
+  } finally {
+    yesButton.textContent = originalYesText;
+    noButton.textContent = originalNoText;
+    setButtonsDisabled(false);
+  }
+}
+
+yesButton?.addEventListener("click", () => submitAnswer("Yes"));
+noButton?.addEventListener("click", () => submitAnswer("No"));
+
+resetButton?.addEventListener("click", () => {
   answerButtons.hidden = false;
   answerResult.hidden = true;
 });
 
 function celebrate() {
   const colors = ["#e84872", "#f9a826", "#7b61ff", "#2dbf8c", "#ff7a59"];
+
   for (let i = 0; i < 34; i += 1) {
     const piece = document.createElement("span");
     piece.className = "confetti";
     piece.style.left = `${Math.random() * 100}vw`;
-    piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.background =
+      colors[Math.floor(Math.random() * colors.length)];
     piece.style.animationDelay = `${Math.random() * 0.45}s`;
     piece.style.transform = `rotate(${Math.random() * 360}deg)`;
     document.body.appendChild(piece);
