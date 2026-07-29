@@ -279,3 +279,21 @@ footer {
     transition-duration: 0.01ms !important;
   }
 }
+select {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 13px 42px 13px 14px;
+  color: var(--text);
+  background-color: white;
+  outline: none;
+  font: inherit;
+  cursor: pointer;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(232, 72, 114, 0.12);
+}
+
