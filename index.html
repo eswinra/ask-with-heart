@@ -4,7 +4,10 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#e84872" />
-  <meta name="description" content="Create a kind, personalized question and share it with someone special." />
+  <meta
+    name="description"
+    content="Create a kind, personalized question and share it with someone special."
+  />
   <title>Ask With Heart</title>
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" href="icons/icon-192.png" />
@@ -24,17 +27,35 @@
         <form id="builderForm">
           <label>
             Their name
-            <input id="toName" name="toName" maxlength="40" placeholder="Alex" required />
+            <input
+              id="toName"
+              name="toName"
+              maxlength="40"
+              placeholder="Alex"
+              required
+            />
           </label>
 
           <label>
             Your name
-            <input id="fromName" name="fromName" maxlength="40" placeholder="Jordan" required />
+            <input
+              id="fromName"
+              name="fromName"
+              maxlength="40"
+              placeholder="Jordan"
+              required
+            />
           </label>
 
           <label>
             Your question
-            <textarea id="question" name="question" maxlength="160" rows="3" required>Would you like to be my girlfriend?</textarea>
+            <textarea
+              id="question"
+              name="question"
+              maxlength="160"
+              rows="3"
+              required
+            >Would you like to be my girlfriend?</textarea>
           </label>
 
           <button class="primary" type="submit">Create my link</button>
@@ -42,13 +63,26 @@
 
         <div id="sharePanel" class="share-panel" hidden>
           <label for="shareUrl">Your shareable link</label>
+
           <div class="url-row">
             <input id="shareUrl" readonly />
-            <button id="copyButton" class="secondary" type="button">Copy</button>
+            <button id="copyButton" class="secondary" type="button">
+              Copy
+            </button>
           </div>
-          <a id="previewLink" class="text-link" target="_blank" rel="noopener">Open preview</a>
+
+          <a
+            id="previewLink"
+            class="text-link"
+            target="_blank"
+            rel="noopener"
+          >
+            Open preview
+          </a>
+
           <p class="small-note">
-            This version does not collect or store answers. The recipient can reply to your text.
+            When the recipient selects Yes or No, the answer will be sent to
+            the form owner's email through Formspree.
           </p>
         </div>
       </div>
@@ -60,17 +94,26 @@
         <p id="senderLine" class="subtext"></p>
 
         <div id="answerButtons" class="answer-grid">
-          <button id="yesButton" class="primary big" type="button">Yes ♥</button>
-          <button id="noButton" class="secondary big" type="button">No</button>
+          <button id="yesButton" class="primary big" type="button">
+            Yes ♥
+          </button>
+          <button id="noButton" class="secondary big" type="button">
+            No
+          </button>
         </div>
 
         <div id="answerResult" class="result" hidden>
           <h2 id="resultTitle"></h2>
           <p id="resultMessage"></p>
-          <button id="resetButton" class="text-button" type="button">Go back</button>
+          <button id="resetButton" class="text-button" type="button">
+            Go back
+          </button>
         </div>
 
-        <p class="consent-note">Choose honestly. There is no pressure either way.</p>
+        <p class="consent-note">
+          Your selection will be sent to the person who created this question.
+          Choose honestly—there is no pressure either way.
+        </p>
       </div>
     </section>
 
