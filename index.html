@@ -4,14 +4,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#e84872" />
-  <meta
-    name="description"
-    content="Create a kind, personalized question and share it with someone special."
-  />
+  <meta name="description" content="Create a kind, personalized question and share it with someone special." />
   <title>Ask With Heart</title>
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" href="icons/icon-192.png" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=3" />
 </head>
 <body>
   <main class="page-shell">
@@ -20,42 +17,47 @@
         <div class="heart-mark" aria-hidden="true">♥</div>
         <p class="eyebrow">Ask With Heart</p>
         <h1>Create a special question</h1>
-        <p class="subtext">
-          Make a simple, respectful page and send the link by text.
-        </p>
+        <p class="subtext">Choose a thoughtful question and send the personalized link by text.</p>
 
         <form id="builderForm">
           <label>
             Their name
-            <input
-              id="toName"
-              name="toName"
-              maxlength="40"
-              placeholder="Alex"
-              required
-            />
+            <input id="toName" name="toName" maxlength="40" placeholder="Alex" required />
           </label>
 
           <label>
             Your name
-            <input
-              id="fromName"
-              name="fromName"
-              maxlength="40"
-              placeholder="Jordan"
-              required
-            />
+            <input id="fromName" name="fromName" maxlength="40" placeholder="Jordan" required />
           </label>
 
-          <label>
-            Your question
-            <textarea
-              id="question"
-              name="question"
-              maxlength="160"
-              rows="3"
-              required
-            >Would you like to be my girlfriend?</textarea>
+          <label for="question">
+            Choose your question
+            <select id="question" name="question" required>
+              <optgroup label="First connection">
+                <option value="Would you like to go out on a date with me?">Would you like to go out on a date with me?</option>
+                <option value="Would you like to get coffee with me?">Would you like to get coffee with me?</option>
+                <option value="Would you like to have dinner with me?">Would you like to have dinner with me?</option>
+                <option value="Would you like to see a movie with me?">Would you like to see a movie with me?</option>
+                <option value="Would you like to get to know each other better?">Would you like to get to know each other better?</option>
+              </optgroup>
+
+              <optgroup label="Relationship">
+                <option value="Would you like to be my girlfriend?" selected>Would you like to be my girlfriend?</option>
+                <option value="Would you like to be my boyfriend?">Would you like to be my boyfriend?</option>
+                <option value="Would you like to make this official?">Would you like to make this official?</option>
+                <option value="Would you like to be my partner?">Would you like to be my partner?</option>
+              </optgroup>
+
+              <optgroup label="Reconnecting">
+                <option value="Would you like to give us another chance?">Would you like to give us another chance?</option>
+                <option value="Would you like to start over together?">Would you like to start over together?</option>
+              </optgroup>
+
+              <optgroup label="Special moments">
+                <option value="Would you like to be my Valentine?">Would you like to be my Valentine?</option>
+                <option value="Would you like to go to prom with me?">Would you like to go to prom with me?</option>
+              </optgroup>
+            </select>
           </label>
 
           <button class="primary" type="submit">Create my link</button>
@@ -63,26 +65,13 @@
 
         <div id="sharePanel" class="share-panel" hidden>
           <label for="shareUrl">Your shareable link</label>
-
           <div class="url-row">
             <input id="shareUrl" readonly />
-            <button id="copyButton" class="secondary" type="button">
-              Copy
-            </button>
+            <button id="copyButton" class="secondary" type="button">Copy</button>
           </div>
-
-          <a
-            id="previewLink"
-            class="text-link"
-            target="_blank"
-            rel="noopener"
-          >
-            Open preview
-          </a>
-
+          <a id="previewLink" class="text-link" target="_blank" rel="noopener">Open preview</a>
           <p class="small-note">
-            When the recipient selects Yes or No, the answer will be sent to
-            the form owner's email through Formspree.
+            When the recipient selects Yes or No, the answer will be sent to the form owner's email through Formspree.
           </p>
         </div>
       </div>
@@ -94,20 +83,14 @@
         <p id="senderLine" class="subtext"></p>
 
         <div id="answerButtons" class="answer-grid">
-          <button id="yesButton" class="primary big" type="button">
-            Yes ♥
-          </button>
-          <button id="noButton" class="secondary big" type="button">
-            No
-          </button>
+          <button id="yesButton" class="primary big" type="button">Yes ♥</button>
+          <button id="noButton" class="secondary big" type="button">No</button>
         </div>
 
         <div id="answerResult" class="result" hidden>
           <h2 id="resultTitle"></h2>
           <p id="resultMessage"></p>
-          <button id="resetButton" class="text-button" type="button">
-            Go back
-          </button>
+          <button id="resetButton" class="text-button" type="button">Go back</button>
         </div>
 
         <p class="consent-note">
